@@ -1,4 +1,5 @@
-
+const ID_NUMBER = '038112827';
+const CAR_NUMBER = '7483018'
 const puppeteer = require('puppeteer');
 (async () => {
   const browser = await puppeteer.launch({headless:false});
@@ -10,22 +11,28 @@ const puppeteer = require('puppeteer');
   
   await page.setViewport({ width: 1280, height: 913 });
   
-  const personalIdSelector = '.container #txtPersId';
-
+  const personalIdSelector = '#txtPersId';
   await page.waitForSelector(personalIdSelector);
   await page.click(personalIdSelector);
-  await page.type(personalIdSelector,'038112827', {delay: 20});
-
-
-  await page.waitForSelector('.container > .main-block > .guest-form > form > .btn');
-  await page.click('.container > .main-block > .guest-form > form > .btn');
+  await page.type(personalIdSelector, ID_NUMBER, {delay: 20});
   
-
-
-//   const carNumber#txtCarNum
-
-
-//   await navigationPromise
+  const checkIdBtn = 'body > div.wrapper > div > div:nth-child(6) > div > form > button'
+  await page.waitForSelector(checkIdBtn);
+  await page.click(checkIdBtn);
   
+  const carNumberSelector = '#txtCarNum';
+  await page.waitForSelector(carNumberSelector);
+  await page.click(carNumberSelector);
+  await page.type(carNumberSelector, CAR_NUMBER, {delay: 20});
+  
+  const registerBtn = 'body > div.wrapper > div > div:nth-child(6) > div > form > button';
+  await page.waitForSelector(registerBtn);
+  await page.click(registerBtn);
+
+
+  await page.waitForSelector('body > div.wrapper > div > div:nth-child(5) > div > table');
+  
+//   await page.pdf();
+
 //   await browser.close()
 })()
